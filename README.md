@@ -1,4 +1,4 @@
-# AWS S3 Demo with Pern Stack
+# AWS S3 Demo with PERN Stack
 
 - Postgres
 - Express
