@@ -1,6 +1,9 @@
-# AWS S3 Demo with MERN
+# AWS S3 Demo with Pern Stack
 
-[Live Version](https://aws-s3-mern-demo.herokuapp.com/#/)
+- Postgres
+- Express
+- React
+- Node
 
 ## Set Up
 
