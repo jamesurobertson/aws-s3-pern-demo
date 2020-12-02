@@ -252,7 +252,7 @@ switch (action.type) {
       return { ...state, user: action.payload };
 ```
 
-The form itself, should look just like a regular React form. Take a look at this form for an example: (UserForm)[https://github.com/jamesurobertson/aws-s3-pern-demo/blob/master/frontend/src/pages/CreateUser.js]
+The form itself, should look just like a regular React form. Take a look at this form for an example: [UserForm](https://github.com/jamesurobertson/aws-s3-pern-demo/blob/master/frontend/src/pages/CreateUser.js)
 
 ```javascript
 // CreateUser.js file
