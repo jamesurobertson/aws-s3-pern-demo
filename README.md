@@ -40,6 +40,23 @@ Click the refresh button all the way to the right of the `Create Policy` button 
 
 After you create the user, you will get the `Access Key ID` and the `Secret Access Key`. Download the .csv file **Store this somewhere safe on your computer**
 
+## Update app.js in backend
+
+In your app.js import the body-parser you module you installed in your backend node_modules.
+
+```javascript
+const bodyParser = require("body-parser");
+```
+
+Change the line of code that says `app.use(express.json())` to the following:
+
+```javascript
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+```
+
+You can learn more about the body parser module here: [body-parser](https://www.npmjs.com/package/body-parser)
+
 ## Set up AWS S3 in your backend
 
 ### [`awsS3.js`](https://github.com/jamesurobertson/aws-s3-pern-demo/blob/master/backend/awsS3.js)
@@ -235,7 +252,6 @@ switch (action.type) {
       return { ...state, user: action.payload };
 ```
 
-
 The form itself, should look just like a regular React form. Take a look at this form for an example: (UserForm)[https://github.com/jamesurobertson/aws-s3-pern-demo/blob/master/frontend/src/pages/CreateUser.js]
 
 ```javascript
@@ -337,7 +353,6 @@ const CreateUser = () => {
 };
 
 export default CreateUser;
-
 ```
 
 If you have any questions or get stuck on any part of the process, please feel free to message me.
