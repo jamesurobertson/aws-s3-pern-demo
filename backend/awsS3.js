@@ -3,15 +3,12 @@ const AWS = require("aws-sdk");
 const NAME_OF_BUCKET = "aws-s3-pern-demo";
 const multer = require("multer");
 
-if (process.env.NODE_ENV !== "production") {
-  AWS.config.loadFromPath("./credentials.json");
-}
-// else {
 //  make sure to set environment variables in production for:
 //  AWS_ACCESS_KEY_ID
 //  AWS_SECRET_ACCESS_KEY
+//  AWS_DEFAULT_REGION
 //  and aws will automatically use those environment variables
-// }
+
 const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
 
 const singlePublicFileUpload = async (file) => {
