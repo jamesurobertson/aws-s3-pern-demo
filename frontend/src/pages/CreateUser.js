@@ -7,13 +7,14 @@ const CreateUser = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [image, setImage] = useState(null);
+  const [images, setImages] = useState([]);
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createUser({ username, email, password, image }));
+    dispatch(createUser({ username, email, password, image, images }));
     setUsername("");
     setEmail("");
     setPassword("");
@@ -25,6 +26,12 @@ const CreateUser = () => {
     const file = e.target.files[0];
     if (file) setImage(file);
   };
+
+  // for multiple file upload
+  //   const updateFiles = (e) => {
+  //     const files = e.target.files;
+  //     setImages(files);
+  //   };
 
   return (
     <div>

@@ -5,7 +5,12 @@ const asyncHandler = require("express-async-handler");
 const { handleValidationErrors } = require("../../utils/validation");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const { User } = require("../../db/models");
-const { singleMulterUpload, singlePublicFileUpload } = require("../../awsS3");
+const {
+  singleMulterUpload,
+  singlePublicFileUpload,
+  multipleMulterUpload,
+  multiplePublicFileUpload,
+} = require("../../awsS3");
 
 const router = express.Router();
 
@@ -48,6 +53,17 @@ router.post(
     });
   })
 );
+
+// for multiple files
+// router.post(
+//   "/",
+//   multipleMulterUpload("images"),
+//   asyncHandler(async (req, res) => {
+//     const images = await multiplePublicFileUpload(req.files);
+//     // Do something with the images
+//     // images is an array where each element is the url to your bucket.
+//   })
+// );
 
 router.put(
   "/:id",
