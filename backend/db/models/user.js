@@ -30,8 +30,6 @@ module.exports = (sequelize, DataTypes) => {
     }
     static async signup({ username, email, password, profileImageUrl }) {
       const hashedPassword = bcrypt.hashSync(password);
-      console.log("huuuuu", profileImageUrl);
-      console.log("type of....", typeof profileImageUrl);
       const user = await User.create({
         username,
         email,
@@ -39,7 +37,6 @@ module.exports = (sequelize, DataTypes) => {
         profileImageUrl,
       });
 
-      console.log(user);
       return await User.scope("currentUser").findByPk(user.id);
     }
     static associate(models) {
