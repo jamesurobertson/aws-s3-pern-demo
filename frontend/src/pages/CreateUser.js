@@ -8,18 +8,27 @@ const CreateUser = () => {
   const [password, setPassword] = useState("");
   const [image, setImage] = useState(null);
   const [images, setImages] = useState([]);
+  const [errors, setErrors] = useState([]);
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createUser({ username, email, password, image, images }));
-    setUsername("");
-    setEmail("");
-    setPassword("");
-    setImage(null);
-    e.target.value = null;
+    let newErrors = [];
+    dispatch(createUser({ username, email, password, image, images }))
+      .then(() => {
+        setUsername("");
+        setEmail("");
+        setPassword("");
+        setImage(null);
+      })
+      .catch((res) => {
+        if (res.data && res.data.errors) {
+          newErrors = res.data.errors;
+          setErrors(newErrors);
+        }
+      });
   };
 
   const updateFile = (e) => {
@@ -36,6 +45,8 @@ const CreateUser = () => {
   return (
     <div>
       <h1>AWS S3 Express-React Demo</h1>
+      {errors.length > 0 &&
+        errors.map((error) => <div key={error}>{error}</div>)}
       <form
         style={{ display: "flex", flexFlow: "column" }}
         onSubmit={handleSubmit}
