@@ -19,7 +19,7 @@
 
 Navigate to [https://s3.console.aws.amazon.com/s3/home?region=us-east-1](https://s3.console.aws.amazon.com/s3/home?region=us-east-1) click on “create bucket”, enter a name, choose a region, and leave all other options as default.
 
-Head to [https://console.aws.amazon.com/iam/home?#/users](https://console.aws.amazon.com/iam/home?#/users) to create a new user. Name the user whatever you like. Give the user `Programmatic access`. Proceed to the next step. Now we need to set up the security policy for our new user. This is how they will be allowed to connect. Click 'Attach existing policies directly' and then 'Create Policy'. This will open up a new tab.
+Head to [https://console.aws.amazon.com/iam/home?#/users](https://console.aws.amazon.com/iam/home?#/users) to create a new user. Name the user whatever you like. Give the user `Programmatic access`. Proceed to the next step. Now you need to set up the security policy for your new user. This is how they will be allowed to connect. Click 'Attach existing policies directly' and then 'Create Policy'. This will open up a new tab.
 
 In the new tab, click the `JSON` tab and paste the following:
 
@@ -69,9 +69,9 @@ You can learn more about the body parser module here: [body-parser](https://www.
 Make a file called `awsS3.js` at the root of your backend directory. [Link to file](https://github.com/jamesurobertson/aws-s3-pern-demo/blob/master/backend/awsS3.js)
 Copy the contents of [this file](https://github.com/jamesurobertson/aws-s3-pern-demo/blob/master/backend/awsS3.js) into the file you just created.
 
-**Rename the `NAME_OF_BUCKET` constant at the top of the `awsS3.js` file.**
+**Rename the `NAME_OF_BUCKET` constant at the top of the `awsS3.js` file to match the name of your bucket.**
 
-In there, you will see that we use the package, `aws-sdk`, set up your credentials for aws, and then export it. Be sure to add these to your `.env` file
+In there, you will see that you are using the package, `aws-sdk`, after setting up your credentials for aws, be sure to add them to your `.env` file
 
 ```
 AWS_ACCESS_KEY_ID=<Your access key here>
@@ -80,7 +80,7 @@ AWS_SECRET_ACCESS_KEY=<Your secret access key here>
 
 #### How to set up your credentials
 
-All you need to do is set environmental keys for `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`. Aws will automatically use those environment variables. When you deploy to heroku, you will also need to set these environment variables there.
+All you need to do is set environmental keys for `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`. Aws will then automatically use those environment variables. When you deploy to heroku, you will also need to set these environment variables there as well.
 
 > You can read more about how AWS uses the environment variables here:
 > [https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/loading-node-credentials-environment.html](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/loading-node-credentials-environment.html)
@@ -91,9 +91,7 @@ All you need to do is set environmental keys for `AWS_ACCESS_KEY_ID` and `AWS_SE
 
 If you absolutely don't want your file images to be publicly available by just any user, you want your files to be private. If you don't care if users are able to access those files (e.g. on Twitter, posts are public so any photos with those posts can be publicly viewed), then you can set up the files to be publicly read.
 
-For most of your uses cases for these portfolio projects I would recommend public upload.
-
-Take a look at the following file, [`awsS3.js`](https://github.com/jamesurobertson/aws-s3-pern-demo/blob/master/backend/awsS3.js), to see how to set up private vs. public AWS S3 upload.
+Public upload is recommended for most of the uses cases for your portfolio projects.
 
 ### Public Files
 
@@ -101,7 +99,7 @@ How to set up uploading and reading public files on the backend.
 
 #### Public File Write Configuration
 
-Take a look at the function `singlePublicFileUpload` in the following file, [`awsS3.js`](https://github.com/jamesurobertson/aws-s3-pern-demo/blob/master/backend/awsS3.js). It accepts a single file which to upload to AWS S3.
+Take a look at the function `singlePublicFileUpload` in the your `awsS3.js`. It accepts a single file which to upload to AWS S3.
 
 ```javascript
 const singlePublicFileUpload = async (file) => {
@@ -122,7 +120,7 @@ const singlePublicFileUpload = async (file) => {
 };
 ```
 
-We will generate a key on S3 that we can use to identify the file that we will be uploading by using a timestamp which guarantees that they key will always be unique.
+You will generate a key on S3 that you can use to identify the file that you will be uploading by using a timestamp which guarantees that they key will always be unique.
 
 `const Key = new Date().getTime().toString() + path.extname(originalname);`
 
@@ -132,11 +130,11 @@ S3 sends back data on the saved file which is saved to the variable `result`.
 
 `const result = await s3.upload(uploadParams).promise();`
 
-We will be saving this url link that S3 generates for us to our database which can be extracted from `result.Location`
+You will be saving this url link that S3 generates for us to your database which can be extracted from `result.Location`
 
-Now all we need is the file to pass into the `singlePublicFileUpload` function. In this walkthrough we are going to be importing it to one of our routes [Users Routes](https://github.com/jamesurobertson/aws-s3-pern-demo/blob/master/backend/routes/api/users.js).
+Now all you need is the file to pass into the `singlePublicFileUpload` function. In this walkthrough you are going to be importing it to one of your routes - [Users Routes](https://github.com/jamesurobertson/aws-s3-pern-demo/blob/master/backend/routes/api/users.js). But you can use the same logic in any route you'd like.
 
-In this file, we need to import the `singlePublicFileUpload` function as well as the `singleMulterUpload` middleware from the `awsS3.js` file.
+In this file, you need to import the `singlePublicFileUpload` function as well as the `singleMulterUpload` middleware from the `awsS3.js` file.
 
 ```javascript
 // Post /api/users ---Sign up
@@ -176,11 +174,11 @@ const singleMulterUpload = (nameOfKey) =>
   multer({ storage: storage }).single(nameOfKey);
 ```
 
-`singleMulterUpload` is a function that generates the middleware necessary to convert the data from our form into readable fields and files. This function accepts the key to which we expect the files to be saved under in our data (`"image"` in this case).
+`singleMulterUpload` is a function that generates the middleware necessary to convert the data from your form into readable fields and files. This function accepts the key to which we expect the files to be saved under in our data (`"image"` in this case).
 
-We connect the `singleMulterUpload` middleware to our `POST /api/users` route, and then we can access the file in our request, `req` under the key of `file`.
+Connect the `singleMulterUpload` middleware to your `POST /api/users` route, and then you can access the file in your request under the key of file - `req.file`
 
-Because the `singlePublicFileUpload` is an async function, it returns a promise. That promise returns the file URL that we want to save to our database. In this case, I want to save that url under the key of `profileImageUrl` on the new User.
+Because the `singlePublicFileUpload` is an async function, it returns a promise. That promise returns the file URL that you want to save to your database. In this case, you want to save that url under the key of `profileImageUrl` on the new User.
 
 #### Public File Read Configuration
 
@@ -189,13 +187,13 @@ Because the `singlePublicFileUpload` is an async function, it returns a promise.
 Access your bucket public permissions:
 ![Access Your Bucket Permissions](assets/block-public-access.png)
 
-Unblock all public access. Our images are going to be accessible to the public for this demo. Be careful when setting this for more sensitive information in the future where you do want to block public access.
+Unblock all public access. Your images are going to be accessible to the public for this demo. Be careful when setting this for more sensitive information in the future where you do want to block public access.
 
 Hit Save
 
 **Sending up the files to your frontend**
 
-All you need to read the files on your frontend is the link to the file that you saved to the database. Nothing special is needed other than the saved S3 URL.
+All you need to read the files on your frontend is the url path to the file that you saved to the database. Nothing special is needed other than the saved S3 URL.
 
 ### Multiple Files Backend
 
@@ -203,16 +201,30 @@ Take a look at the `multiplePublicFileUpload`, and `multipleMulterUpload` functi
 
 ## File Upload on the Frontend
 
-We will be using fetch for this example. To send files, the Content-Type Header must be `"multipart/form-data"`. In our custon fetch function in the csrf.js file we have these lines of code:
+You will be using fetch for this example. To send files, the Content-Type Header must be `"multipart/form-data"`. In your custon fetch function in the csrf.js file we have these lines of code:
 
 ```javascript
 options.headers["Content-Type"] =
   options.headers["Content-Type"] || "application/json";
 ```
 
-For us to add the apporopriate boundaries to our multipart/form-data we need to comment out this line of code. By adding formData to the body of our request, the browser will automatically set the appropriate headers and boundaries. By doing this we need to make sure we are adding the 'application/json' Content-Type header on our fetch requests that are sending along json to our backend.
+By adding formData to the body of our request, the browser will automatically set the appropriate headers and boundaries and so we need to remove the `Content-Type` header if it is multipart/form-data.
 
-In the [`session.js`](https://github.com/jamesurobertson/aws-s3-pern-demo/blob/master/frontend/src/store/session.js) file, we will be defining our `createUser` action which accepts an object of key value pairs and turns them into `FormData` entries to send with our request.
+The entire if statement should now look like this:
+
+```javascript
+if (options.method.toUpperCase() !== "GET") {
+  if (options.headers["Content-Type"] === "multipart/form-data") {
+    delete options.headers["Content-Type"];
+  } else {
+    options.headers["Content-Type"] =
+      options.headers["Content-Type"] || "application/json";
+  }
+  options.headers["XSRF-Token"] = Cookies.get("XSRF-TOKEN");
+}
+```
+
+In the [`session.js`](https://github.com/jamesurobertson/aws-s3-pern-demo/blob/master/frontend/src/store/session.js) file, you will be defining your `createUser` thunk which accepts an object of key value pairs and turns them into `FormData` entries to send with our request.
 
 ```javascript
 // user_actions.js
@@ -249,7 +261,7 @@ export const createUser = (user) => async (dispatch) => {
 };
 ```
 
-We can now add a new case to our reducer
+You can now add a new case to your reducer
 
 ```javascript
 switch (action.type) {
@@ -257,7 +269,7 @@ switch (action.type) {
       return { ...state, user: action.payload };
 ```
 
-The form itself, should look just like a regular React form. Take a look at this form for an example: [UserForm](https://github.com/jamesurobertson/aws-s3-pern-demo/blob/master/frontend/src/pages/CreateUser.js)
+The form itself should look just like a regular React form. Take a look at this form for an example: [CreateUser](https://github.com/jamesurobertson/aws-s3-pern-demo/blob/master/frontend/src/pages/CreateUser.js)
 
 ```javascript
 // CreateUser.js file
@@ -270,19 +282,29 @@ const CreateUser = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [image, setImage] = useState(null);
-  const [images, setImages] = useState([]);
+  // for multuple file upload
+  //   const [images, setImages] = useState([]);
+  const [errors, setErrors] = useState([]);
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createUser({ username, email, password, image, images }));
-    setUsername("");
-    setEmail("");
-    setPassword("");
-    setImage(null);
-    e.target.value = null;
+    let newErrors = [];
+    dispatch(createUser({ username, email, password, image }))
+      .then(() => {
+        setUsername("");
+        setEmail("");
+        setPassword("");
+        setImage(null);
+      })
+      .catch((res) => {
+        if (res.data && res.data.errors) {
+          newErrors = res.data.errors;
+          setErrors(newErrors);
+        }
+      });
   };
 
   const updateFile = (e) => {
@@ -299,6 +321,8 @@ const CreateUser = () => {
   return (
     <div>
       <h1>AWS S3 Express-React Demo</h1>
+      {errors.length > 0 &&
+        errors.map((error) => <div key={error}>{error}</div>)}
       <form
         style={{ display: "flex", flexFlow: "column" }}
         onSubmit={handleSubmit}
@@ -337,9 +361,7 @@ const CreateUser = () => {
               multiple
               onChange={updateFiles} />
           </label> */}
-        <button type="submit" value="Create User">
-          Create User
-        </button>
+        <button type="submit">Create User</button>
       </form>
       <div>
         {user && (
@@ -360,4 +382,4 @@ const CreateUser = () => {
 export default CreateUser;
 ```
 
-If you have any questions or get stuck on any part of the process, please feel free to message me.
+If you have any questions or get stuck on any part of the process, please feel free to message me!
