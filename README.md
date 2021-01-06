@@ -174,7 +174,7 @@ const singleMulterUpload = (nameOfKey) =>
   multer({ storage: storage }).single(nameOfKey);
 ```
 
-`singleMulterUpload` is a function that generates the middleware necessary to convert the data from your form into readable fields and files. This function accepts the key to which we expect the files to be saved under in our data (`"image"` in this case).
+`singleMulterUpload` is a function that generates the middleware necessary to convert the data from your form into readable fields and files. This function accepts the key to which you expect the files to be saved under in your data (`"image"` in this case).
 
 Connect the `singleMulterUpload` middleware to your `POST /api/users` route, and then you can access the file in your request under the key of file - `req.file`
 
@@ -201,14 +201,14 @@ Take a look at the `multiplePublicFileUpload`, and `multipleMulterUpload` functi
 
 ## File Upload on the Frontend
 
-You will be using fetch for this example. To send files, the Content-Type Header must be `"multipart/form-data"`. In your custon fetch function in the csrf.js file we have these lines of code:
+You will be using fetch for this example. To send files, the Content-Type Header must be `"multipart/form-data"`. In your custon fetch function in the csrf.js file you have these lines of code:
 
 ```javascript
 options.headers["Content-Type"] =
   options.headers["Content-Type"] || "application/json";
 ```
 
-By adding formData to the body of our request, the browser will automatically set the appropriate headers and boundaries and so we need to remove the `Content-Type` header if it is multipart/form-data.
+By adding formData to the body of your request, the browser will automatically set the appropriate headers and boundaries so you need to remove the `Content-Type` header if it is multipart/form-data.
 
 The entire if statement should now look like this:
 
@@ -224,7 +224,7 @@ if (options.method.toUpperCase() !== "GET") {
 }
 ```
 
-In the [`session.js`](https://github.com/jamesurobertson/aws-s3-pern-demo/blob/master/frontend/src/store/session.js) file, you will be defining your `createUser` thunk which accepts an object of key value pairs and turns them into `FormData` entries to send with our request.
+In the [`session.js`](https://github.com/jamesurobertson/aws-s3-pern-demo/blob/master/frontend/src/store/session.js) file, you will be defining your `createUser` thunk which accepts an object of key value pairs and turns them into `FormData` entries to send with your request.
 
 ```javascript
 // user_actions.js
