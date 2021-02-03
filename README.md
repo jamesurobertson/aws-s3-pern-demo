@@ -254,6 +254,9 @@ export const createUser = (user) => async (dispatch) => {
 
   const res = await fetch(`/api/users/`, {
     method: "POST",
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
     body: formData,
   });
 
