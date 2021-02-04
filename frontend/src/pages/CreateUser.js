@@ -24,9 +24,10 @@ const CreateUser = () => {
         setPassword("");
         setImage(null);
       })
-      .catch((res) => {
-        if (res.data && res.data.errors) {
-          newErrors = res.data.errors;
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) {
+          newErrors = data.errors;
           setErrors(newErrors);
         }
       });

@@ -1,4 +1,4 @@
-import { fetch } from "../util/csrf.js";
+import { csrfFetch } from "../util/csrf.js";
 
 const GET_USERS = "users/get_users";
 
@@ -8,8 +8,9 @@ const getUsers = (users) => ({
 });
 
 export const getAllUsers = () => async (dispatch) => {
-  const res = await fetch("/api/users");
-  dispatch(getUsers(res.data));
+  const res = await csrfFetch("/api/users");
+  const data = await res.json();
+  dispatch(getUsers(data));
 };
 
 const initialState = {};
