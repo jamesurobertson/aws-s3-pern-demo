@@ -201,7 +201,7 @@ Take a look at the `multiplePublicFileUpload`, and `multipleMulterUpload` functi
 
 ## File Upload on the Frontend
 
-You will be using fetch for this example. To send files, the Content-Type Header must be `"multipart/form-data"`. In your custon fetch function in the csrf.js file you have these lines of code:
+You will be using fetch for this example. To send files, the Content-Type Header must be `"multipart/form-data"`. In your custom fetch function, `csrfFetch`, in the csrf.js file you have these lines of code:
 
 ```javascript
 options.headers["Content-Type"] =
@@ -252,7 +252,7 @@ export const createUser = (user) => async (dispatch) => {
   // for single file
   if (image) formData.append("image", image);
 
-  const res = await fetch(`/api/users/`, {
+  const res = await csrfFetch(`/api/users/`, {
     method: "POST",
     headers: {
       "Content-Type": "multipart/form-data",
@@ -260,7 +260,8 @@ export const createUser = (user) => async (dispatch) => {
     body: formData,
   });
 
-  dispatch(setUser(res.data.user));
+  const data = await res.json();
+  dispatch(setUser(data.user));
 };
 ```
 
@@ -302,9 +303,10 @@ const CreateUser = () => {
         setPassword("");
         setImage(null);
       })
-      .catch((res) => {
-        if (res.data && res.data.errors) {
-          newErrors = res.data.errors;
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) {
+          newErrors = data.errors;
           setErrors(newErrors);
         }
       });
