@@ -13,7 +13,6 @@
 
 - [multer](https://www.npmjs.com/package/multer)
 - [aws-sdk](https://www.npmjs.com/package/aws-sdk)
-- [body-parser](https://www.npmjs.com/package/body-parser)
 
 #### Create your AWS User and Bucket
 
@@ -47,20 +46,16 @@ After you create the user, you will get the `Access Key ID` and the `Secret Acce
 
 ## Update app.js in backend
 
-In your app.js import the body-parser you module you installed in your backend node_modules.
+Add a line before (or after) to use Express's built-in `.urlencoded()` method in
+your application.
 
 ```javascript
-const bodyParser = require("body-parser");
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 ```
 
-Change the line of code that says `app.use(express.json())` to the following:
-
-```javascript
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-```
-
-You can learn more about the body parser module here: [body-parser](https://www.npmjs.com/package/body-parser)
+You can learn more about the urlencoded module that Express provides here:
+[urlencoded](https://expressjs.com/en/4x/api.html#express.urlencoded)
 
 ## Set up AWS S3 in your backend
 
