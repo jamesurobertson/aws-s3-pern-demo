@@ -46,7 +46,7 @@ After you create the user, you will get the `Access Key ID` and the `Secret Acce
 
 ## Update app.js in backend
 
-Add a line before (or after) to use Express's built-in `.urlencoded()` method in
+Add a line before (or after) the `express.json()` line to use Express's built-in `.urlencoded()` method in
 your application.
 
 ```javascript
