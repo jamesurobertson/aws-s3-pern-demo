@@ -180,11 +180,20 @@ Because the `singlePublicFileUpload` is an async function, it returns a promise.
 **On AWS S3 Console**
 
 Access your bucket public permissions:
+
 ![Access Your Bucket Permissions](assets/block-public-access.png)
 
 Unblock all public access. Your images are going to be accessible to the public for this demo. Be careful when setting this for more sensitive information in the future where you do want to block public access.
 
-Hit Save
+Then, scroll to `Object Ownership` and click on Edit.
+
+<img src="https://user-images.githubusercontent.com/89059894/168724451-b7e33a65-c50b-4e4f-a3bc-8159c48c6b83.png" height="200" />
+
+Change the settings to `ACLs Enabled` and `Bucket owner preferred`.
+
+<img src="https://user-images.githubusercontent.com/89059894/168724412-e4c330de-bbc7-4729-b6a4-da18133a6de3.png" height="500" />
+
+Hit Save Changes
 
 **Sending up the files to your frontend**
 
